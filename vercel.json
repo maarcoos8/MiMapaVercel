@@ -24,11 +24,6 @@
       "destination": "/index.html"
     }
   ],
-  "functions": {
-    "api/index.py": {
-      "runtime": "@vercel/python@4.3.0"
-    }
-  },
   "headers": [
     {
       "source": "/assets/(.*)",
