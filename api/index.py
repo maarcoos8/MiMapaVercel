@@ -1,8 +1,7 @@
 """
 Entry point para Vercel Serverless Functions
-Adapta FastAPI para funcionar como serverless usando Mangum
+Exporta directamente la app FastAPI para que Vercel la maneje
 """
-from mangum import Mangum
 import sys
 from pathlib import Path
 
@@ -12,5 +11,5 @@ sys.path.insert(0, str(backend_path))
 
 from app.main import app
 
-# Handler para Vercel
-handler = Mangum(app, lifespan="off")
+# Exportar la app directamente - Vercel maneja ASGI nativamente
+app = app
