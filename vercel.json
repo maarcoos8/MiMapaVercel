@@ -2,29 +2,26 @@
   "buildCommand": "cd frontend && npm install && npm run build",
   "outputDirectory": "frontend/dist",
   "installCommand": "pip install -r requirements.txt && cd frontend && npm install",
-  "routes": [
+  "rewrites": [
     {
-      "src": "/api/(.*)",
-      "dest": "/api/index.py"
+      "source": "/api/(.*)",
+      "destination": "/api/index.py"
     },
     {
-      "src": "/auth/(.*)",
-      "dest": "/api/index.py"
+      "source": "/auth/(.*)",
+      "destination": "/api/index.py"
     },
     {
-      "src": "/markers/(.*)",
-      "dest": "/api/index.py"
+      "source": "/markers/(.*)",
+      "destination": "/api/index.py"
     },
     {
-      "src": "/visits/(.*)",
-      "dest": "/api/index.py"
+      "source": "/visits/(.*)",
+      "destination": "/api/index.py"
     },
     {
-      "handle": "filesystem"
-    },
-    {
-      "src": "/(.*)",
-      "dest": "/index.html"
+      "source": "/(.*)",
+      "destination": "/index.html"
     }
   ],
   "functions": {
