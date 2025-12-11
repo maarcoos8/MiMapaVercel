@@ -1,43 +1,41 @@
 {
-  "buildCommand": "cd frontend && npm install && npm run build",
-  "outputDirectory": "frontend/dist",
-  "installCommand": "pip install -r requirements.txt && cd frontend && npm install",
-  "functions": {
-    "api/index.py": {
-      "runtime": "@vercel/python@4.3.0"
-    }
-  },
-  "rewrites": [
+  "version": 2,
+  "builds": [
     {
-      "source": "/api/(.*)",
-      "destination": "/api/index.py"
+      "src": "api/index.py",
+      "use": "@vercel/python"
     },
     {
-      "source": "/auth/(.*)",
-      "destination": "/api/index.py"
-    },
-    {
-      "source": "/markers/(.*)",
-      "destination": "/api/index.py"
-    },
-    {
-      "source": "/visits/(.*)",
-      "destination": "/api/index.py"
-    },
-    {
-      "source": "/(.*)",
-      "destination": "/index.html"
+      "src": "frontend/package.json",
+      "use": "@vercel/static-build",
+      "config": {
+        "distDir": "dist"
+      }
     }
   ],
-  "headers": [
+  "routes": [
     {
-      "source": "/assets/(.*)",
-      "headers": [
-        {
-          "key": "Cache-Control",
-          "value": "public, max-age=31536000, immutable"
-        }
-      ]
+      "src": "/api/(.*)",
+      "dest": "/api/index.py"
+    },
+    {
+      "src": "/auth/(.*)",
+      "dest": "/api/index.py"
+    },
+    {
+      "src": "/markers/(.*)",
+      "dest": "/api/index.py"
+    },
+    {
+      "src": "/visits/(.*)",
+      "dest": "/api/index.py"
+    },
+    {
+      "handle": "filesystem"
+    },
+    {
+      "src": "/(.*)",
+      "dest": "/frontend/dist/$1"
     }
   ]
 }
