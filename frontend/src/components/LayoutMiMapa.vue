@@ -154,8 +154,8 @@ function openThemePopover(event: Event) {
   isProfilePopoverOpen.value = false;
 }
 
-function changeTheme(theme: string) {
-  ThemeService.setTheme(theme as any);
+function changeTheme(theme: 'light' | 'dark' | 'system') {
+  ThemeService.setTheme(theme);
   currentTheme.value = theme;
 }
 
