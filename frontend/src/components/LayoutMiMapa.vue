@@ -125,10 +125,10 @@ const user = computed(() => authStore.user);
 const isAuthenticated = computed(() => authStore.isAuthenticated);
 const showBackButton = computed(() => route.path !== '/my-map' && route.path !== '/login');
 
-const themeOptions = [
+const themeOptions: Array<{ label: string; value: 'light' | 'dark' | 'system' }> = [
   { label: 'Claro', value: 'light' },
   { label: 'Oscuro', value: 'dark' },
-  { label: 'Sistema', value: 'auto' },
+  { label: 'Sistema', value: 'system' },
 ];
 
 function goToHome() {

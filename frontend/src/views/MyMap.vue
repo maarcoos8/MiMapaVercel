@@ -266,8 +266,8 @@ function handleMarkerClick(marker: Marker) {
 function focusMarker(marker: Marker) {
   console.log('Focusing marker:', marker.id);
   // Abrir el popup del marcador en el mapa
-  if (mapViewerRef.value) {
-    (mapViewerRef.value as any).openMarkerPopup(marker.id);
+  if (mapViewerRef.value && typeof mapViewerRef.value === 'object' && 'openMarkerPopup' in mapViewerRef.value) {
+    (mapViewerRef.value as { openMarkerPopup: (id: string) => void }).openMarkerPopup(marker.id);
   }
 }
 
