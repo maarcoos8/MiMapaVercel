@@ -1,43 +1,37 @@
 {
   "buildCommand": "cd frontend && npm install && npm run build",
   "outputDirectory": "frontend/dist",
-  "installCommand": "cd frontend && npm install",
-  "framework": null,
-  "builds": [
+  "installCommand": "pip install -r requirements.txt && cd frontend && npm install",
+  "routes": [
     {
-      "src": "api/index.py",
-      "use": "@vercel/python"
+      "src": "/api/(.*)",
+      "dest": "/api/index.py"
     },
     {
-      "src": "frontend/package.json",
-      "use": "@vercel/static-build",
-      "config": {
-        "distDir": "dist"
-      }
+      "src": "/auth/(.*)",
+      "dest": "/api/index.py"
+    },
+    {
+      "src": "/markers/(.*)",
+      "dest": "/api/index.py"
+    },
+    {
+      "src": "/visits/(.*)",
+      "dest": "/api/index.py"
+    },
+    {
+      "handle": "filesystem"
+    },
+    {
+      "src": "/(.*)",
+      "dest": "/index.html"
     }
   ],
-  "rewrites": [
-    {
-      "source": "/api/(.*)",
-      "destination": "/api/index.py"
-    },
-    {
-      "source": "/auth/(.*)",
-      "destination": "/api/index.py"
-    },
-    {
-      "source": "/markers/(.*)",
-      "destination": "/api/index.py"
-    },
-    {
-      "source": "/visits/(.*)",
-      "destination": "/api/index.py"
-    },
-    {
-      "source": "/(.*)",
-      "destination": "/index.html"
+  "functions": {
+    "api/index.py": {
+      "runtime": "@vercel/python@4.3.0"
     }
-  ],
+  },
   "headers": [
     {
       "source": "/assets/(.*)",
