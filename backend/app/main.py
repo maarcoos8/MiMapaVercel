@@ -1,9 +1,8 @@
 from fastapi import FastAPI
 from fastapi.middleware.cors import CORSMiddleware
 from starlette.middleware.sessions import SessionMiddleware
-from contextlib import asynccontextmanager
 import logging
-from app.database.database import connect_to_mongo, close_mongo_connection
+from app.database.database import init_db
 from app.routers import auth, markers, visits
 from app.core.config import settings
 
@@ -13,22 +12,16 @@ logging.basicConfig(
     format='%(asctime)s - %(name)s - %(levelname)s - %(message)s'
 )
 
-# Variable global para almacenar el cliente de MongoDB
-mongo_client = None
-
-@asynccontextmanager
-async def lifespan(app: FastAPI):
-    global mongo_client
-    mongo_client = await connect_to_mongo()
-    yield
-    await close_mongo_connection(mongo_client)
-
 app = FastAPI(
     title="MiMapa API",
     description="API para la aplicación MiMapa - Gestión de mapas personales con marcadores",
-    version="1.0.0",
-    lifespan=lifespan
+    version="1.0.0"
 )
+
+# Inicializar DB en el startup (compatible con serverless)
+@app.on_event("startup")
+async def startup_event():
+    await init_db()
 
 # Configurar SessionMiddleware (requerido para OAuth)
 app.add_middleware(
