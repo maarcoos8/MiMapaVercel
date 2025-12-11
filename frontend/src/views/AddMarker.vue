@@ -158,7 +158,7 @@ async function handleSubmit() {
     error.value = err.message || 'Error al añadir marcador';
 
     const toast = await toastController.create({
-      message: error.value,
+      message: error.value || 'Error desconocido',
       duration: 3000,
       color: 'danger',
       position: 'top',

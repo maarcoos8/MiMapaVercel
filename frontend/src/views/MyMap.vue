@@ -30,7 +30,7 @@
             <ion-searchbar
               v-model="searchEmail"
               placeholder="Buscar mapa de otro usuario por email"
-              debounce="500"
+              :debounce="500"
               @ionChange="handleSearchChange"
               @ionClear="clearSearch"
             ></ion-searchbar>

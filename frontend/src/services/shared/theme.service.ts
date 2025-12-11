@@ -27,6 +27,10 @@ class ThemeService {
         localStorage.setItem(this.themeKey, theme);
     }
 
+    getTheme(): 'light' | 'dark' | 'system' {
+        return (localStorage.getItem(this.themeKey) as 'light' | 'dark' | 'system') || 'system';
+    }
+
     private applySystemTheme() {
         const isDarkMode = this.prefersDark.matches;
         this.applyThemeClass(isDarkMode);
