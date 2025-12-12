@@ -77,7 +77,8 @@ async def auth_google(request: Request):
         # Redirigir al frontend con el token
         # El frontend debe estar configurado para recibir el token en la URL
         frontend_url = f"{settings.FRONTEND_URL}/auth/callback?token={access_token}"
-        return RedirectResponse(url=frontend_url)
+        logging.info(f"Redirigiendo a: {frontend_url}")
+        return RedirectResponse(url=frontend_url, status_code=302)
         
     except Exception as e:
         logging.error(f"Error en autenticación de Google: {str(e)}")

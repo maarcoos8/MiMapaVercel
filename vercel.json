@@ -19,7 +19,19 @@
       "dest": "/api/index.py"
     },
     {
-      "src": "/auth/(.*)",
+      "src": "/auth/login/google",
+      "dest": "/api/index.py"
+    },
+    {
+      "src": "/auth/callback/google",
+      "dest": "/api/index.py"
+    },
+    {
+      "src": "/auth/logout",
+      "dest": "/api/index.py"
+    },
+    {
+      "src": "/auth/me",
       "dest": "/api/index.py"
     },
     {
